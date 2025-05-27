@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.firstuse-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a, #3a0a0a);
+  overflow: hidden;
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.cards-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.card-bg {
+  position: absolute;
+  border: 2px solid;
+  border-radius: 12px;
+  background: white;
+  user-select: none;
+  cursor: default;
+  box-sizing: border-box;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-value {
+  position: absolute;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
+  color: inherit;
+}
+
+.top-left {
+  top: 6px;
+  left: 8px;
+  font-size: 18px;
+}
+
+.bottom-right {
+  bottom: 6px;
+  right: 8px;
+  font-size: 18px;
+  transform: rotate(180deg);
+}
+
+.card-suit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 36px;
+  line-height: 1;
+  color: inherit;
+  user-select: none;
+  transform: translate(-50%, -50%);
+}
+
+/* ⬇️ CONTENEDOR ACTUALIZADO CON EFECTO LED DORADO ⬇️ */
+.firstuse-content {
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+  padding: 60px 50px;
+  background: rgba(20, 10, 10, 0.85);
+  border-radius: 25px;
+  border: 3px solid #3a0a0a;
+  box-shadow:
+    0 0 20px #3a0a0a,
+    0 0 35px #3a0a0a,
+    inset 0 0 15px rgba(247, 213, 88, 0.2);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: glowFrame 3s ease-in-out infinite;
+}
+
+@keyframes glowFrame {
+  0%, 100% {
+    box-shadow:
+      0 0 20px #3a0a0a,
+      0 0 35px #3a0a0a,
+      inset 0 0 15px rgba(247, 213, 88, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 30px #3a0a0a,
+      0 0 55px #3a0a0a,
+      inset 0 0 25px rgba(255, 226, 111, 0.3);
+  }
+}
+
+.overlay-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 40px 50px;
+  border-radius: 20px;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 3px solid #ff0000;
+  box-shadow:
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 30px #ff0000,
+    0 0 40px #ff0000,
+    0 0 60px #ff0000;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: pulse-red 3s infinite ease-in-out;
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    box-shadow:
+      0 0 10px #ff0000,
+      0 0 20px #ff0000,
+      0 0 30px #ff0000,
+      0 0 40px #ff0000,
+      0 0 60px #ff0000;
+  }
+  50% {
+    box-shadow:
+      0 0 20px #ff4d4d,
+      0 0 30px #ff4d4d,
+      0 0 40px #ff4d4d,
+      0 0 50px #ff4d4d,
+      0 0 70px #ff4d4d;
+  }
+}
+
+.casino-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: 3.8rem;
+  color: #ff4d4d;
+  background: linear-gradient(45deg, #ff1a1a, #ff6666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 0 10px #ff4d4d,
+    0 0 20px #ff0000,
+    0 0 30px #ff0000;
+  margin-bottom: 25px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.casino-description {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: #ff9999;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 0 5px #ff9999,
+    0 0 10px #ff6666;
+}
+
+.enter-button {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff3b3b, #ff1a1a);
+  border: none;
+  padding: 14px 30px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  box-shadow:
+    0 0 12px #ff3b3b,
+    0 0 20px #ff0000;
+  user-select: none;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.enter-button:hover {
+  background: linear-gradient(45deg, #ffd700, #ffae00);
+  box-shadow:
+    0 0 15px #ffd700,
+    0 0 30px #ffae00;
+}
+
+.enter-button:focus {
+  outline: none;
+  box-shadow:
+    0 0 20px #3a0a0a,
+    0 0 40px #3a0a0a;
+}
+
+@media (max-width: 600px) {
+  .casino-title {
+    font-size: 2.8rem;
+  }
+
+  .casino-description {
+    font-size: 1.1rem;
+  }
+
+  .enter-button {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+}

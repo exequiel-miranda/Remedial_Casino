@@ -1,0 +1,170 @@
+.casino-hero {
+    height: 100vh;
+    width: 100vw;
+    padding-top: 60px; /* para que no quede debajo del navbar */
+    background: linear-gradient(135deg, #330000, #000000);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #eee;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .casino-hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    letter-spacing: 0.15em;
+    text-shadow:
+      0 0 8px #ff0000,
+      0 0 15px #ff4d4d;
+  }
+  
+  .casino-hero-content .highlight {
+    color: #ff4d4d;
+    text-shadow:
+      0 0 10px #ff1a1a,
+      0 0 20px #ff3333;
+  }
+  
+  .casino-hero-content p {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: #bbb;
+    text-shadow: 0 0 5px #660000;
+  }
+  
+  .play-button {
+    background: linear-gradient(45deg, #ff0000, #660000);
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow:
+      0 0 15px #ff0000,
+      0 0 25px #cc0000 inset;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  
+  .play-button:hover {
+    background: linear-gradient(45deg, #ff4d4d, #990000);
+    box-shadow:
+      0 0 25px #ff4d4d,
+      0 0 40px #cc0000 inset;
+  }
+  
+  .casino-cards {
+    margin-top: 40px;
+    display: flex;
+    gap: 25px;
+  }
+  
+  .card {
+    font-size: 6rem;
+    width: 100px;
+    height: 140px;
+    border-radius: 16px;
+    background: #222;
+    box-shadow:
+      0 0 15px #440000 inset,
+      0 0 20px #cc0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: default;
+    transition: transform 0.3s ease;
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+  }
+  
+  /* Animaciones para movimiento flotante */
+  @keyframes floatUpDown {
+    0%, 100% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(-15px) rotate(5deg);
+    }
+  }
+  
+  @keyframes floatUpDownReverse {
+    0%, 100% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(15px) rotate(-5deg);
+    }
+  }
+  
+  /* Animaciones para cada carta */
+  .spade {
+    color: #eee;
+    text-shadow: 0 0 8px #fff;
+    animation-name: floatUpDown;
+    animation-delay: 0s;
+  }
+  
+  .heart {
+    color: #ff4d4d;
+    text-shadow: 0 0 15px #ff0000;
+    animation-name: floatUpDownReverse;
+    animation-delay: 1s;
+  }
+  
+  .diamond {
+    color: #ff6666;
+    text-shadow: 0 0 10px #ff3333;
+    animation-name: floatUpDown;
+    animation-delay: 2s;
+  }
+  
+  .club {
+    color: #bbb;
+    text-shadow: 0 0 7px #888;
+    animation-name: floatUpDownReverse;
+    animation-delay: 3s;
+  }
+  
+  /* Pausar animación al hacer hover y aplicar efecto */
+  .card:hover {
+    animation-play-state: paused;
+    transform: scale(1.1) rotate(10deg) !important;
+    box-shadow:
+      0 0 30px #ff1a1a inset,
+      0 0 40px #ff4d4d;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .casino-hero-content h1 {
+      font-size: 2.4rem;
+    }
+    .casino-hero-content p {
+      font-size: 1.1rem;
+    }
+    .play-button {
+      font-size: 1rem;
+      padding: 12px 28px;
+    }
+    .casino-cards {
+      gap: 15px;
+    }
+    .card {
+      font-size: 4rem;
+      width: 70px;
+      height: 100px;
+    }
+  }
+  

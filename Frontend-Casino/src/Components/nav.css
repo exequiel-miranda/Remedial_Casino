@@ -1,0 +1,136 @@
+/* Reset básico */
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* NAVBAR */
+  .navbar {
+    background: #1a1a1a; /* negro oscuro */
+    color: #ddd; /* gris claro */
+    font-family: 'Poppins', sans-serif;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-shadow: 0 2px 6px rgba(255, 0, 0, 0.4);
+  }
+  
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  
+  .nav-logo {
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: #ff4d4d; /* rojo brillante */
+    letter-spacing: 0.1em;
+    user-select: none;
+  }
+  
+  /* MENU */
+  .nav-menu {
+    display: flex;
+    gap: 32px;
+    transition: left 0.3s ease;
+  }
+  
+  .nav-item {}
+  
+  .nav-link {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #bbb; /* gris medio */
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover,
+  .nav-link.active {
+    color: #ff3333; /* rojo vibrante */
+  }
+  
+  /* Underline animado */
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ff3333;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+  
+  /* Toggle menu para móvil */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .bar {
+    height: 3px;
+    width: 25px;
+    background-color: #ff4d4d;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Animación del toggle (cruz) cuando está activo */
+  .nav-toggle.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .nav-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-menu {
+      position: fixed;
+      top: 60px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background-color: #1a1a1a;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+  
+    .nav-menu.active {
+      left: 0;
+    }
+  
+    .nav-toggle {
+      display: flex;
+    }
+  }
+  
