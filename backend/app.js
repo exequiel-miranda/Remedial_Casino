@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "", // Cambia esto por tu frontend, por ejemplo: "https://miapp.onrender.com"
+    origin: "", 
     credentials: true
   })
 );
