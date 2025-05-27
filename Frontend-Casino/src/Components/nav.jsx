@@ -14,11 +14,9 @@ const Navbar = () => {
         <a href="/casino" className="nav-logo">Colonial Casino</a>
         <ul className={`nav-menu ${menuOpen ? 'active' : ''}`}>
           <li className="nav-item"><a href="/Games" className="nav-link active">Games</a></li>
-          <li className="nav-item"><a href="#" className="nav-link">Clients</a></li>
-          <li className="nav-item"><a href="#" className="nav-link">Bets</a></li>
+          <li className="nav-item"><a href="/Clients" className="nav-link">Clients</a></li>
         </ul>
         <div className={`nav-toggle ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
-          <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>
         </div>
