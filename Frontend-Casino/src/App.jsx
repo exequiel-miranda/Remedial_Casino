@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import FirstUse from './pages/firstuse/firstuse.jsx'
+import FirstUse from './pages/firstuse/FirstUse.jsx';
 import CasinoHero from './pages/menu/menu.jsx'
 import Navbar from '../src/Components/nav.jsx'
 import GamesManager from "./pages/Games/Games.jsx";
