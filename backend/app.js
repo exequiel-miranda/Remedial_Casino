@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "",
     // Permitir envío de cookies y credenciales
     credentials: true
   })
