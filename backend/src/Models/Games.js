@@ -4,20 +4,20 @@ const GameSchema = new Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     category: {
       type: String,
-      require: true,
+      required: true,
     },
     minBet: {
       type: Number,
-      require: true,
+      required: true,
       min: 0,
     },
     maxBet: {
       type: Number,
-      require: true,
+      required: true,
       min: 0,
     },
   },
@@ -26,5 +26,6 @@ const GameSchema = new Schema(
     strict: false,
   }
 );
+
 
 export default model("Games", GameSchema);

@@ -13,7 +13,7 @@ const GamesManager = () => {
   const fetchGames = async () => {
     setLoading(true);
     try {
-      const res = await fetch("https://remedial-casino.onrender.com/api/games");
+      const res = await fetch("https://remedial-casino.onrender.com/api/Games");
       if (!res.ok) throw new Error("Failed to fetch games");
       const data = await res.json();
       setGames(data);
@@ -81,8 +81,8 @@ const GamesManager = () => {
     try {
       const res = await fetch(
         editingId
-          ? `https://remedial-casino.onrender.com/api/games/${editingId}`
-          : "https://remedial-casino.onrender.com/api/games",
+          ? `https://remedial-casino.onrender.com/api/Games/${editingId}`
+          : "https://remedial-casino.onrender.com/api/Games",
         {
           method: editingId ? "PUT" : "POST",
           headers: { "Content-Type": "application/json" },
@@ -105,7 +105,7 @@ const GamesManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("♠️ Are you sure you want to delete this game?")) return;
     try {
-      const res = await fetch(`https://remedial-casino.onrender.com/api/games/${id}`, {
+      const res = await fetch(`https://remedial-casino.onrender.com/api/Games/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete game");
