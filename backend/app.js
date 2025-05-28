@@ -1,7 +1,7 @@
 // backend/app.js
 import express from "express";
-import clientsRoutes from './src/routes/Clients.js'
-import gamesRoutes from "./src/routes/Games.js";     // Asegúrate que 'Games.js' existe también
+import clientsRoutes from './src/Routes/Clients.js'
+import gamesRoutes from './src/Routes/Games.js'     // Asegúrate que 'Games.js' existe también
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
