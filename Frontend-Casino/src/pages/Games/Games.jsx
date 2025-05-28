@@ -10,13 +10,11 @@ const GamesManager = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_URL = "https://remedial-casino.onrender.com/api/games";
-
   const fetchGames = async () => {
     setLoading(true);
     try {
-      const res = await fetch(API_URL);
-      if (!res.ok) throw new Error("Network response was not ok");
+      const res = await fetch("https://remedial-casino.onrender.com/api/games");
+      if (!res.ok) throw new Error("Failed to fetch games");
       const data = await res.json();
       setGames(data);
     } catch (error) {
@@ -33,14 +31,12 @@ const GamesManager = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Para inputs numéricos, permitir "" para limpiar campo
     if (name === "minBet" || name === "maxBet") {
       if (value === "") {
         setForm(f => ({ ...f, [name]: "" }));
       } else {
-        // Permitir sólo números no negativos
-        const numberValue = Number(value);
-        if (!isNaN(numberValue) && numberValue >= 0) {
+        const num = Number(value);
+        if (!isNaN(num) && num >= 0) {
           setForm(f => ({ ...f, [name]: value }));
         }
       }
@@ -52,7 +48,6 @@ const GamesManager = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar campos vacíos y que minBet y maxBet sean números válidos
     if (
       !form.name.trim() ||
       !form.category.trim() ||
@@ -63,38 +58,41 @@ const GamesManager = () => {
       return;
     }
 
-    if (Number(form.minBet) > Number(form.maxBet)) {
+    const min = Number(form.minBet);
+    const max = Number(form.maxBet);
+
+    if (isNaN(min) || isNaN(max) || min < 0 || max < 0) {
+      alert("💸 Min and Max Bet must be valid non-negative numbers");
+      return;
+    }
+
+    if (min > max) {
       alert("💡 Min Bet cannot be greater than Max Bet");
       return;
     }
 
-    try {
-      if (editingId) {
-        const res = await fetch(`${API_URL}/${editingId}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...form,
-            minBet: Number(form.minBet),
-            maxBet: Number(form.maxBet),
-          }),
-        });
-        if (!res.ok) throw new Error("Failed to update");
-        alert("🛠️ Game updated!");
-      } else {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...form,
-            minBet: Number(form.minBet),
-            maxBet: Number(form.maxBet),
-          }),
-        });
-        if (!res.ok) throw new Error("Failed to create");
-        alert("🎲 Game created!");
-      }
+    const gameData = {
+      name: form.name.trim(),
+      category: form.category.trim(),
+      minBet: min,
+      maxBet: max,
+    };
 
+    try {
+      const res = await fetch(
+        editingId
+          ? `https://remedial-casino.onrender.com/api/games/${editingId}`
+          : "https://remedial-casino.onrender.com/api/games",
+        {
+          method: editingId ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(gameData),
+        }
+      );
+
+      if (!res.ok) throw new Error("Error saving game");
+
+      alert(editingId ? "🛠️ Game updated!" : "🎲 Game created!");
       setForm(initialForm);
       setEditingId(null);
       fetchGames();
@@ -107,10 +105,10 @@ const GamesManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("♠️ Are you sure you want to delete this game?")) return;
     try {
-      const res = await fetch(`${API_URL}/${id}`, {
+      const res = await fetch(`https://remedial-casino.onrender.com/api/games/${id}`, {
         method: "DELETE",
       });
-      if (!res.ok) throw new Error("Failed to delete");
+      if (!res.ok) throw new Error("Failed to delete game");
       alert("🗑️ Game deleted");
       fetchGames();
     } catch (error) {
