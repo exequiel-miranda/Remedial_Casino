@@ -50,7 +50,12 @@ const GamesManager = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name.trim() || !form.category.trim() || form.minBet === "" || form.maxBet === "") {
+    if (
+      !form.name.trim() ||
+      !form.category.trim() ||
+      form.minBet === "" ||
+      form.maxBet === ""
+    ) {
       alert("🃏 Please fill out all fields");
       return;
     }
@@ -76,19 +81,34 @@ const GamesManager = () => {
     };
 
     try {
-      const res = await fetch(editingId ? `${API_BASE}/${editingId}` : API_BASE, {
-        method: editingId ? "PUT" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(gameData),
-      });
+      const res = await fetch(
+        editingId ? `${API_BASE}/${editingId}` : API_BASE,
+        {
+          method: editingId ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(gameData),
+        }
+      );
 
       if (!res.ok) {
-        // intenta extraer mensaje de error
         let errorMsg = `Error saving game (${res.status})`;
+
         try {
           const errData = await res.json();
-          if (errData.message) errorMsg = errData.message;
-        } catch {}
+          console.log("Error JSON from server:", errData);
+          if (errData.message) {
+            errorMsg = errData.message;
+          }
+        } catch (jsonError) {
+          // Si no es JSON válido, prueba texto plano
+          try {
+            const textError = await res.text();
+            console.log("Error text from server:", textError);
+            if (textError) errorMsg = textError;
+          } catch (textErrorCatch) {
+            console.log("No se pudo leer el error en texto");
+          }
+        }
         throw new Error(errorMsg);
       }
 
@@ -98,12 +118,13 @@ const GamesManager = () => {
       fetchGames();
     } catch (error) {
       alert(`💥 ${error.message}`);
-      console.error(error);
+      console.error("Error en handleSubmit:", error);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("♠️ Are you sure you want to delete this game?")) return;
+    if (!window.confirm("♠️ Are you sure you want to delete this game?"))
+      return;
     try {
       const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
       if (!res.ok) {
@@ -147,7 +168,9 @@ const GamesManager = () => {
         />
 
         {loading ? (
-          <p style={{ textAlign: "center", color: "#ff6666" }}>Loading games... 💫</p>
+          <p style={{ textAlign: "center", color: "#ff6666" }}>
+            Loading games... 💫
+          </p>
         ) : (
           <table className="games-table">
             <thead>
@@ -162,7 +185,10 @@ const GamesManager = () => {
             <tbody>
               {filteredGames.length === 0 ? (
                 <tr>
-                  <td colSpan="5" style={{ textAlign: "center", color: "#aaa" }}>
+                  <td
+                    colSpan="5"
+                    style={{ textAlign: "center", color: "#aaa" }}
+                  >
                     🎴 No games found
                   </td>
                 </tr>
@@ -174,10 +200,16 @@ const GamesManager = () => {
                     <td>${game.minBet}</td>
                     <td>${game.maxBet}</td>
                     <td>
-                      <button className="btn edit-btn" onClick={() => startEdit(game)}>
+                      <button
+                        className="btn edit-btn"
+                        onClick={() => startEdit(game)}
+                      >
                         ✏️ Edit
                       </button>
-                      <button className="btn delete-btn" onClick={() => handleDelete(game._id)}>
+                      <button
+                        className="btn delete-btn"
+                        onClick={() => handleDelete(game._id)}
+                      >
                         🗑️ Delete
                       </button>
                     </td>
@@ -246,4 +278,3 @@ const GamesManager = () => {
 };
 
 export default GamesManager;
-
