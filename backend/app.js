@@ -1,7 +1,8 @@
 
 import express from "express";
-import clientsRoutes from "./src/routes/Clients.js";
-import gamesRoutes from "./src/routes/Games.js";
+//import clientsRoutes from "./src/routes/Clients.js";
+import clientsRoutes from "./src/Routes/Clients.js"
+import gamesRoutes from "./src/Routes/Games.js";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 
