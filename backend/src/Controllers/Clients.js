@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import clientsModel from "../models/Clients.js";
+import clientsModel from "../models/clients.js";
 
 const clientsController = {};
 
