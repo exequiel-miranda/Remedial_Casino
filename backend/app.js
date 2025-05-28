@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: "https://remedial-casino-0pbd.onrender.com",
+    origin: "https://remedial-casino-mu.vercel.app/",
     credentials: true,
   })
 );
