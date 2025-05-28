@@ -9,7 +9,7 @@ const initialForm = {
   country: "",
 };
 
-const API_URL = "http://localhost:4000/api/clients";
+const API_URL = "https://remedial-casino.onrender.com/api/clients";
 
 const ClientsManager = () => {
   const [clients, setClients] = useState([]);

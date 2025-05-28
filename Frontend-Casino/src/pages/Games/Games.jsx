@@ -10,7 +10,7 @@ const GamesManager = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_URL = "http://localhost:4000/api/games";
+  const API_URL = "https://remedial-casino.onrender.com/api/games";
 
   const fetchGames = async () => {
     setLoading(true);
