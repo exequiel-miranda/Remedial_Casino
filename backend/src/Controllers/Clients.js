@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import clientsModel from "../models/clients.js";  // <-- ruta en minúsculas
+import clientsModel from "../models/Clients.js"; // <-- ruta en minúsculas
 
 const clientsController = {};
 
@@ -53,7 +53,9 @@ clientsController.updateClients = async (req, res) => {
       updateData.password = hashedPassword;
     }
 
-    await clientsModel.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    await clientsModel.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    });
 
     res.json({ message: "Clients updated successfully" });
   } catch (error) {
