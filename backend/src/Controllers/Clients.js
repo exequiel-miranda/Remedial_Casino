@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
-import clientsModel from "../models/Clients.js"; // <-- ruta en minúsculas
+//import clientsModel from "../models/Clients.js"; // <-- ruta en minúsculas
+import clientsModel from "../Models/Clients.js";
 
 const clientsController = {};
 
