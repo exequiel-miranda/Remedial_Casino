@@ -1,12 +1,10 @@
 const GamesController = {};
-import GameModel from "../models/Games.js";
-
+import GameModel from "../Models/Games.js";
 
 GamesController.getGames = async (req, res) => {
   const games = await GameModel.find();
   res.json(games);
 };
-
 
 GamesController.createGame = async (req, res) => {
   const { name, category, minBet, maxBet } = req.body;
@@ -15,7 +13,6 @@ GamesController.createGame = async (req, res) => {
   res.json({ message: "Game saved successfully" });
 };
 
-
 GamesController.deleteGame = async (req, res) => {
   const deletedGame = await GameModel.findByIdAndDelete(req.params.id);
   if (!deletedGame) {
@@ -23,7 +20,6 @@ GamesController.deleteGame = async (req, res) => {
   }
   res.json({ message: "Game deleted successfully" });
 };
-
 
 GamesController.updateGame = async (req, res) => {
   const { name, category, minBet, maxBet } = req.body;
