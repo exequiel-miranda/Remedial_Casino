@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import './Games.css';
+import "./Games.css";
+
+const API_BASE = "https://remedial-casino.onrender.com/api/games"; // minúsculas, consistencia
 
 const initialForm = { name: "", category: "", minBet: "", maxBet: "" };
 
@@ -13,8 +15,8 @@ const GamesManager = () => {
   const fetchGames = async () => {
     setLoading(true);
     try {
-      const res = await fetch("https://remedial-casino.onrender.com/api/Games");
-      if (!res.ok) throw new Error("Failed to fetch games");
+      const res = await fetch(API_BASE);
+      if (!res.ok) throw new Error(`Failed to fetch games (${res.status})`);
       const data = await res.json();
       setGames(data);
     } catch (error) {
@@ -33,27 +35,22 @@ const GamesManager = () => {
     const { name, value } = e.target;
     if (name === "minBet" || name === "maxBet") {
       if (value === "") {
-        setForm(f => ({ ...f, [name]: "" }));
+        setForm((f) => ({ ...f, [name]: "" }));
       } else {
         const num = Number(value);
         if (!isNaN(num) && num >= 0) {
-          setForm(f => ({ ...f, [name]: value }));
+          setForm((f) => ({ ...f, [name]: value }));
         }
       }
     } else {
-      setForm(f => ({ ...f, [name]: value }));
+      setForm((f) => ({ ...f, [name]: value }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !form.name.trim() ||
-      !form.category.trim() ||
-      form.minBet === "" ||
-      form.maxBet === ""
-    ) {
+    if (!form.name.trim() || !form.category.trim() || form.minBet === "" || form.maxBet === "") {
       alert("🃏 Please fill out all fields");
       return;
     }
@@ -79,25 +76,28 @@ const GamesManager = () => {
     };
 
     try {
-      const res = await fetch(
-        editingId
-          ? `https://remedial-casino.onrender.com/api/Games/${editingId}`
-          : "https://remedial-casino.onrender.com/api/Games",
-        {
-          method: editingId ? "PUT" : "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(gameData),
-        }
-      );
+      const res = await fetch(editingId ? `${API_BASE}/${editingId}` : API_BASE, {
+        method: editingId ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(gameData),
+      });
 
-      if (!res.ok) throw new Error("Error saving game");
+      if (!res.ok) {
+        // intenta extraer mensaje de error
+        let errorMsg = `Error saving game (${res.status})`;
+        try {
+          const errData = await res.json();
+          if (errData.message) errorMsg = errData.message;
+        } catch {}
+        throw new Error(errorMsg);
+      }
 
       alert(editingId ? "🛠️ Game updated!" : "🎲 Game created!");
       setForm(initialForm);
       setEditingId(null);
       fetchGames();
     } catch (error) {
-      alert("💥 Error saving game!");
+      alert(`💥 ${error.message}`);
       console.error(error);
     }
   };
@@ -105,14 +105,14 @@ const GamesManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("♠️ Are you sure you want to delete this game?")) return;
     try {
-      const res = await fetch(`https://remedial-casino.onrender.com/api/Games/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error("Failed to delete game");
+      const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
+      if (!res.ok) {
+        throw new Error(`Failed to delete game (${res.status})`);
+      }
       alert("🗑️ Game deleted");
       fetchGames();
     } catch (error) {
-      alert("❌ Error deleting game");
+      alert(`❌ ${error.message}`);
       console.error(error);
     }
   };
@@ -124,7 +124,7 @@ const GamesManager = () => {
       minBet: game.minBet.toString(),
       maxBet: game.maxBet.toString(),
     });
-    setEditingId(game._id);
+    setEditingId(game._id); // asegúrate que _id existe en el objeto game
   };
 
   const filteredGames = games.filter(
@@ -147,9 +147,7 @@ const GamesManager = () => {
         />
 
         {loading ? (
-          <p style={{ textAlign: "center", color: "#ff6666" }}>
-            Loading games... 💫
-          </p>
+          <p style={{ textAlign: "center", color: "#ff6666" }}>Loading games... 💫</p>
         ) : (
           <table className="games-table">
             <thead>
@@ -176,16 +174,10 @@ const GamesManager = () => {
                     <td>${game.minBet}</td>
                     <td>${game.maxBet}</td>
                     <td>
-                      <button
-                        className="btn edit-btn"
-                        onClick={() => startEdit(game)}
-                      >
+                      <button className="btn edit-btn" onClick={() => startEdit(game)}>
                         ✏️ Edit
                       </button>
-                      <button
-                        className="btn delete-btn"
-                        onClick={() => handleDelete(game._id)}
-                      >
+                      <button className="btn delete-btn" onClick={() => handleDelete(game._id)}>
                         🗑️ Delete
                       </button>
                     </td>
@@ -254,3 +246,4 @@ const GamesManager = () => {
 };
 
 export default GamesManager;
+
