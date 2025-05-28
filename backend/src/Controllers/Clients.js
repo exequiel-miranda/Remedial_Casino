@@ -1,14 +1,12 @@
 import bcrypt from "bcryptjs";
-import clientsModel from "../models/clients.js";
+import clientsModel from "../models/clients.js";  // <-- ruta en minúsculas
 
 const clientsController = {};
-
 
 clientsController.getClients = async (req, res) => {
   const Clients = await clientsModel.find();
   res.json(Clients);
 };
-
 
 clientsController.createClients = async (req, res) => {
   try {
