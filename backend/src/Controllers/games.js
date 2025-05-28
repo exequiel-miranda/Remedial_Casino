@@ -1,18 +1,42 @@
-const GamesController = {};
-import GameModel from "../Models/Games.js";
+import GameModel from "../Models/Games.js"; // ✅ Ya importado
 
+const GamesController = {};
+
+// GET all games
 GamesController.getGames = async (req, res) => {
   const games = await GameModel.find();
   res.json(games);
 };
 
+// POST new game
 GamesController.createGame = async (req, res) => {
-  const { name, category, minBet, maxBet } = req.body;
-  const newGame = new GameModel({ name, category, minBet, maxBet });
-  await newGame.save();
-  res.json({ message: "Game saved successfully" });
+  try {
+    const { name, category, minBet, maxBet } = req.body;
+
+    if (!name || !category || minBet == null || maxBet == null) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    if (isNaN(minBet) || isNaN(maxBet)) {
+      return res.status(400).json({ message: "minBet and maxBet must be numbers" });
+    }
+
+    const newGame = new GameModel({
+      name,
+      category,
+      minBet: Number(minBet),
+      maxBet: Number(maxBet),
+    });
+
+    await newGame.save();
+    res.status(201).json({ message: "Game saved successfully" });
+  } catch (error) {
+    console.error("Error creating game:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
+// DELETE
 GamesController.deleteGame = async (req, res) => {
   const deletedGame = await GameModel.findByIdAndDelete(req.params.id);
   if (!deletedGame) {
@@ -21,6 +45,7 @@ GamesController.deleteGame = async (req, res) => {
   res.json({ message: "Game deleted successfully" });
 };
 
+// PUT
 GamesController.updateGame = async (req, res) => {
   const { name, category, minBet, maxBet } = req.body;
   await GameModel.findByIdAndUpdate(
