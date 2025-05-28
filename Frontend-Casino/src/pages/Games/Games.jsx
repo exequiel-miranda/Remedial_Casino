@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Games.css";
 
-const API_BASE = "https://remedial-casino.onrender.com/api/games"; // minúsculas, consistencia
+const API_BASE = "https://remedial-casino-0pbd.onrender.com/api/games"; // minúsculas, consistencia
 
 const initialForm = { name: "", category: "", minBet: "", maxBet: "" };
 

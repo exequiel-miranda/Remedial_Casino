@@ -1,8 +1,8 @@
 import express from "express";
 //import clientsRoutes from "./src/routes/Clients.js";
-import clientsRoutes from "./src/Routes/Clients.js"
+import clientsRoutes from "./src/Routes/Clients.js";
 import gamesRoutes from "./src/Routes/Games.js";
-import cors from "cors"
+import cors from "cors";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -13,10 +13,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors({
-  origin: "https://remedial-casino.vercel.app",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "https://remedial-casino-0pbd.onrender.com",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
