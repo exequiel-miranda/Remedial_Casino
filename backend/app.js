@@ -13,12 +13,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
-  cors({
-    origin: "https://remedial-casino.vercel.app",
-    credentials: true
-  })
-);
+app.use(cors({
+  origin: "https://remedial-casino.vercel.app",
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/clients", clientsRoutes);
